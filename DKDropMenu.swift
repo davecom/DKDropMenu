@@ -41,7 +41,7 @@ class DKDropMenu: UIView {
     
     @IBInspectable var itemHeight: CGFloat = 44
     weak var delegate: DKDropMenuDelegate? = nil
-    var items: [String] = [String]()
+    private var items: [String] = [String]()
     var selectedItem: String? = nil {
         didSet {
             setNeedsDisplay()
@@ -55,8 +55,10 @@ class DKDropMenu: UIView {
                 if (self.collapsed) {
                     tempFrame.size.height = self.itemHeight
                 } else {
-                    if (self.items.count > 1) {
+                    if (self.items.count > 1 && self.selectedItem != nil) {
                         tempFrame.size.height = self.itemHeight * CGFloat(self.items.count)
+                    } else if (self.items.count > 0 && self.selectedItem == nil) {
+                        tempFrame.size.height = self.itemHeight * CGFloat(self.items.count) + self.itemHeight
                     }
                 }
                 self.frame = tempFrame
@@ -87,9 +89,12 @@ class DKDropMenu: UIView {
         //draw first box regardless
         let context = UIGraphicsGetCurrentContext()
         UIColor.lightGrayColor().setStroke()
-        CGContextSetLineWidth(context, 2.0)
-        var rectangle = CGRectMake(0, 0, frame.size.width, itemHeight)
-        CGContextStrokeRect(context, rectangle)
+        CGContextSetLineWidth(context, 1.0)
+        CGContextMoveToPoint(context, 0, itemHeight)
+        CGContextAddLineToPoint(context, 0, 0.5)
+        CGContextAddLineToPoint(context, frame.size.width, 0.5)
+        CGContextAddLineToPoint(context, frame.size.width, itemHeight)
+        CGContextStrokePath(context)
         if let sele = selectedItem { //draw item text
             var paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .Center
@@ -110,9 +115,18 @@ class DKDropMenu: UIView {
                     continue
                 }
                 UIColor.lightGrayColor().setStroke()
-                CGContextSetLineWidth(context, 2.0)
-                rectangle = CGRectMake(0, currentY, frame.size.width, itemHeight)
-                CGContextStrokeRect(context, rectangle)
+                CGContextSetLineWidth(context, 1.0)
+                CGContextMoveToPoint(context, 0, currentY)
+                CGContextAddLineToPoint(context, 0, currentY + itemHeight)
+                CGContextStrokePath(context)
+                CGContextSetLineWidth(context, 0.5)
+                CGContextMoveToPoint(context, 0, currentY + itemHeight - 1)
+                CGContextAddLineToPoint(context, frame.size.width, currentY + itemHeight - 1)
+                CGContextStrokePath(context)
+                CGContextSetLineWidth(context, 1.0)
+                CGContextMoveToPoint(context, frame.size.width, currentY + itemHeight)
+                CGContextAddLineToPoint(context, frame.size.width, currentY)
+                CGContextStrokePath(context)
                 var paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.alignment = .Center
                 let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: UIColor.darkGrayColor()]

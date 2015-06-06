@@ -17,7 +17,6 @@ class ViewController: UIViewController, DKDropMenuDelegate {
         
         dropMenu.addItems(["hello", "goodbye", "why?"])
         dropMenu.delegate = self
-        //dropMenu.selectedItem = nil
     }
 
     override func didReceiveMemoryWarning() {
