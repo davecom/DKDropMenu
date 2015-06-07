@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/davekopec'
   s.authors          = { 'David Kopec' => 'david@oaksnow.com' }
   s.source           = { :git => 'https://github.com/davecom/DKDropMenu.git', :tag => s.version }
-  s.screenshot       = 'http://yannickloriot.com/resources/dynamiccolor-sample-screenshot.png'
+  s.screenshot       = 'https://raw.githubusercontent.com/davecom/DKDropMenu/master/DKDropMenu.png'
 
   s.ios.deployment_target = '8.0'
 

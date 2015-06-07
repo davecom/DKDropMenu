@@ -44,7 +44,7 @@ class DKDropMenu: UIView {
     @IBInspectable var textColor: UIColor = UIColor.darkGrayColor()
     @IBInspectable var outlineColor: UIColor = UIColor.lightGrayColor()
     @IBInspectable var selectedColor: UIColor = UIColor.greenColor()
-    weak var delegate: DKDropMenuDelegate? = nil
+    weak var delegate: DKDropMenuDelegate? = nil  //notified when a selection occurs
     private var items: [String] = [String]()
     var selectedItem: String? = nil {
         didSet {
@@ -99,11 +99,18 @@ class DKDropMenu: UIView {
         CGContextAddLineToPoint(context, frame.size.width, 0.5)
         CGContextAddLineToPoint(context, frame.size.width, itemHeight)
         CGContextStrokePath(context)
-        if let sele = selectedItem { //draw item text
+        if let sele = selectedItem {
+            //draw item text
             var paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .Center
             let attrs = [NSFontAttributeName: UIFont(name: fontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
-            sele.drawInRect(CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 20, height: 20), withAttributes: attrs)
+            if (collapsed) {
+                let tempS = "\(sele)"  //put chevron down facing here if right unicode found
+                tempS.drawInRect(CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 20, height: 20), withAttributes: attrs)
+            } else {
+                let tempS = "\(sele)"  //put chevron up facing here if right unicode found
+                tempS.drawInRect(CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 20, height: 20), withAttributes: attrs)
+            }
             //draw selected line
             selectedColor.setStroke()
             CGContextMoveToPoint(context, 0, itemHeight - 2)
@@ -123,6 +130,7 @@ class DKDropMenu: UIView {
                 if item == selectedItem {
                     continue
                 }
+                //draw box
                 outlineColor.setStroke()
                 CGContextSetLineWidth(context, 1.0)
                 CGContextMoveToPoint(context, 0, currentY)
@@ -136,6 +144,7 @@ class DKDropMenu: UIView {
                 CGContextMoveToPoint(context, frame.size.width, currentY + itemHeight)
                 CGContextAddLineToPoint(context, frame.size.width, currentY)
                 CGContextStrokePath(context)
+                //draw item text
                 var paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.alignment = .Center
                 let attrs = [NSFontAttributeName: UIFont(name: fontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
