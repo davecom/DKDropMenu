@@ -40,6 +40,10 @@ import UIKit
 class DKDropMenu: UIView {
     
     @IBInspectable var itemHeight: CGFloat = 44
+    @IBInspectable var fontName: String = "HelveticaNeue-Thin"
+    @IBInspectable var textColor: UIColor = UIColor.darkGrayColor()
+    @IBInspectable var outlineColor: UIColor = UIColor.lightGrayColor()
+    @IBInspectable var selectedColor: UIColor = UIColor.greenColor()
     weak var delegate: DKDropMenuDelegate? = nil
     private var items: [String] = [String]()
     var selectedItem: String? = nil {
@@ -88,7 +92,7 @@ class DKDropMenu: UIView {
         // Drawing code
         //draw first box regardless
         let context = UIGraphicsGetCurrentContext()
-        UIColor.lightGrayColor().setStroke()
+        outlineColor.setStroke()
         CGContextSetLineWidth(context, 1.0)
         CGContextMoveToPoint(context, 0, itemHeight)
         CGContextAddLineToPoint(context, 0, 0.5)
@@ -98,13 +102,18 @@ class DKDropMenu: UIView {
         if let sele = selectedItem { //draw item text
             var paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .Center
-            let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+            let attrs = [NSFontAttributeName: UIFont(name: fontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
             sele.drawInRect(CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 20, height: 20), withAttributes: attrs)
-            //draw green line
-            UIColor.greenColor().setStroke()
+            //draw selected line
+            selectedColor.setStroke()
             CGContextMoveToPoint(context, 0, itemHeight - 2)
             CGContextSetLineWidth(context, 4.0)
             CGContextAddLineToPoint(context, frame.width, itemHeight - 2)
+            CGContextStrokePath(context)
+        } else {
+            CGContextMoveToPoint(context, 0, itemHeight - 1)
+            CGContextSetLineWidth(context, 1.0)
+            CGContextAddLineToPoint(context, frame.width, itemHeight - 1)
             CGContextStrokePath(context)
         }
         //draw lower boxes
@@ -114,7 +123,7 @@ class DKDropMenu: UIView {
                 if item == selectedItem {
                     continue
                 }
-                UIColor.lightGrayColor().setStroke()
+                outlineColor.setStroke()
                 CGContextSetLineWidth(context, 1.0)
                 CGContextMoveToPoint(context, 0, currentY)
                 CGContextAddLineToPoint(context, 0, currentY + itemHeight)
@@ -129,7 +138,7 @@ class DKDropMenu: UIView {
                 CGContextStrokePath(context)
                 var paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.alignment = .Center
-                let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+                let attrs = [NSFontAttributeName: UIFont(name: fontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
                 item.drawInRect(CGRect(x: 20, y: currentY + (itemHeight / 2 - 10), width: frame.size.width - 20, height: 20), withAttributes: attrs)
                 currentY += itemHeight
             }
@@ -137,12 +146,14 @@ class DKDropMenu: UIView {
     }
     
     // MARK: Add or remove items
+    /// Add an array of items to the menu
     func addItems(names: [String]) {
         for name in names {
             addItem(name)
         }
     }
     
+    /// Add a single item to the menu
     func addItem(name: String) {
         //if we have no selected items, we'll take it
         if items.isEmpty {
@@ -164,7 +175,7 @@ class DKDropMenu: UIView {
         setNeedsDisplay()
     }
 
-    /// Remove a single item from the
+    /// Remove a single item from the menu
     func removeItemAtIndex(index: Int) {
         if (items[index] == selectedItem) {
             selectedItem = nil
