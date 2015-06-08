@@ -66,6 +66,7 @@ public class DKDropMenu: UIView {
                     }
                 }
                 self.frame = tempFrame
+                self.invalidateIntrinsicContentSize()
                 }, completion: nil)
             setNeedsDisplay()
         }
