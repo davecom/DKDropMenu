@@ -31,27 +31,27 @@
 import UIKit
 
 /// Delegate protocol for receiving change in list selection
-@objc protocol DKDropMenuDelegate {
-    func itemSelectedWithIndex(index: Int, name:String)
+@objc public protocol DKDropMenuDelegate {
+     func itemSelectedWithIndex(index: Int, name:String)
 }
 
 /// A simple drop down list like expandable menu for iOS
 @IBDesignable
-class DKDropMenu: UIView {
+public class DKDropMenu: UIView {
     
-    @IBInspectable var itemHeight: CGFloat = 44
-    @IBInspectable var fontName: String = "HelveticaNeue-Thin"
-    @IBInspectable var textColor: UIColor = UIColor.darkGrayColor()
-    @IBInspectable var outlineColor: UIColor = UIColor.lightGrayColor()
-    @IBInspectable var selectedColor: UIColor = UIColor.greenColor()
-    weak var delegate: DKDropMenuDelegate? = nil  //notified when a selection occurs
+    @IBInspectable public var itemHeight: CGFloat = 44
+    @IBInspectable public var fontName: String = "HelveticaNeue-Thin"
+    @IBInspectable public var textColor: UIColor = UIColor.darkGrayColor()
+    @IBInspectable public var outlineColor: UIColor = UIColor.lightGrayColor()
+    @IBInspectable public var selectedColor: UIColor = UIColor.greenColor()
+    weak public var delegate: DKDropMenuDelegate? = nil  //notified when a selection occurs
     private var items: [String] = [String]()
-    var selectedItem: String? = nil {
+    public var selectedItem: String? = nil {
         didSet {
             setNeedsDisplay()
         }
     }
-    var collapsed: Bool = true {
+    public var collapsed: Bool = true {
         didSet {
             //animate collapsing or opening
             UIView.animateWithDuration(0.5, delay: 0, options: .TransitionCrossDissolve, animations: {
@@ -72,7 +72,7 @@ class DKDropMenu: UIView {
     }
     
     // MARK: Overridden standard UIView methods
-    override func sizeThatFits(size: CGSize) -> CGSize {
+    override public func sizeThatFits(size: CGSize) -> CGSize {
         if (items.count < 2 || collapsed) {
             return CGSize(width: size.width, height: itemHeight)
         } else {
@@ -80,7 +80,7 @@ class DKDropMenu: UIView {
         }
     }
     
-    override func intrinsicContentSize() -> CGSize {
+    override public func intrinsicContentSize() -> CGSize {
         if (items.count < 2 || collapsed) {
             return CGSize(width: bounds.size.width, height: itemHeight)
         } else {
@@ -88,7 +88,7 @@ class DKDropMenu: UIView {
         }
     }
     
-    override func drawRect(rect: CGRect) {
+    override public func drawRect(rect: CGRect) {
         // Drawing code
         //draw first box regardless
         let context = UIGraphicsGetCurrentContext()
@@ -156,14 +156,14 @@ class DKDropMenu: UIView {
     
     // MARK: Add or remove items
     /// Add an array of items to the menu
-    func addItems(names: [String]) {
+    public func addItems(names: [String]) {
         for name in names {
             addItem(name)
         }
     }
     
     /// Add a single item to the menu
-    func addItem(name: String) {
+    public func addItem(name: String) {
         //if we have no selected items, we'll take it
         if items.isEmpty {
             selectedItem = name
@@ -185,7 +185,7 @@ class DKDropMenu: UIView {
     }
 
     /// Remove a single item from the menu
-    func removeItemAtIndex(index: Int) {
+    public func removeItemAtIndex(index: Int) {
         if (items[index] == selectedItem) {
             selectedItem = nil
         }
@@ -209,14 +209,14 @@ class DKDropMenu: UIView {
     }
     
     /// Remove the first occurence of item named *name*
-    func removeItem(name: String) {
+    public func removeItem(name: String) {
         if let index = find(items, name) {
             removeItemAtIndex(index)
         }
     }
     
     // MARK: Events
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override public func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         let touch:UITouch = touches.first as! UITouch
         let point:CGPoint = touch.locationInView(self)
         if point.y > itemHeight {
