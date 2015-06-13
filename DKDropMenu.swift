@@ -41,7 +41,8 @@ import UIKit
 public class DKDropMenu: UIView {
     
     @IBInspectable public var itemHeight: CGFloat = 44
-    @IBInspectable public var fontName: String = "HelveticaNeue-Thin"
+    @IBInspectable public var selectedFontName: String = "HelveticaNeue-Bold"
+    @IBInspectable public var listFontName: String = "HelveticaNeue-Thin"
     @IBInspectable public var textColor: UIColor = UIColor.darkGrayColor()
     @IBInspectable public var outlineColor: UIColor = UIColor.lightGrayColor()
     @IBInspectable public var selectedColor: UIColor = UIColor.greenColor()
@@ -106,7 +107,7 @@ public class DKDropMenu: UIView {
             //draw item text
             var paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .Center
-            let attrs = [NSFontAttributeName: UIFont(name: fontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
+            let attrs = [NSFontAttributeName: UIFont(name: selectedFontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
             if (collapsed) {
                 let tempS = "\(sele)"  //put chevron down facing here if right unicode found
                 tempS.drawInRect(CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 20, height: 20), withAttributes: attrs)
@@ -150,7 +151,7 @@ public class DKDropMenu: UIView {
                 //draw item text
                 var paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.alignment = .Center
-                let attrs = [NSFontAttributeName: UIFont(name: fontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
+                let attrs = [NSFontAttributeName: UIFont(name: listFontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
                 item.drawInRect(CGRect(x: 20, y: currentY + (itemHeight / 2 - 10), width: frame.size.width - 20, height: 20), withAttributes: attrs)
                 currentY += itemHeight
             }
