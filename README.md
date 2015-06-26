@@ -19,6 +19,12 @@ func itemSelectedWithIndex(index: Int, name: String) {
     println("\(name) selected");
 }
 ```
+The delegate can also optionally implement the method 
+```
+func collapsedChanged()
+```
+to be notified when the collapse status of the menu changes.
+
 Items can be added or removed 
 ```
 func addItems(names: [String])
