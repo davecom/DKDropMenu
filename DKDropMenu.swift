@@ -33,7 +33,7 @@ import UIKit
 /// Delegate protocol for receiving change in list selection
 @objc public protocol DKDropMenuDelegate {
     func itemSelectedWithIndex(index: Int, name:String)
-    optional func collapsedChanged()
+    optional func collapsedChangedForNewRect(NewRect: CGRect)
 }
 
 /// A simple drop down list like expandable menu for iOS
@@ -55,24 +55,47 @@ public class DKDropMenu: UIView {
     }
     public var collapsed: Bool = true {
         didSet {
-            delegate?.collapsedChanged?()
-            //animate collapsing or opening
-            UIView.animateWithDuration(0.5, delay: 0, options: .TransitionCrossDissolve, animations: {
-                var tempFrame = self.frame
-                if (self.collapsed) {
-                    tempFrame.size.height = self.itemHeight
-                } else {
-                    if (self.items.count > 1 && self.selectedItem != nil) {
-                        tempFrame.size.height = self.itemHeight * CGFloat(self.items.count)
-                    } else if (self.items.count > 0 && self.selectedItem == nil) {
-                        tempFrame.size.height = self.itemHeight * CGFloat(self.items.count) + self.itemHeight
-                    }
+            var tempFrame = self.frame
+            if (self.collapsed) {
+                tempFrame.size.height = self.itemHeight
+            } else {
+                if (self.items.count > 1 && self.selectedItem != nil) {
+                    tempFrame.size.height = self.itemHeight * CGFloat(self.items.count)
+                } else if (self.items.count > 0 && self.selectedItem == nil) {
+                    tempFrame.size.height = self.itemHeight * CGFloat(self.items.count) + self.itemHeight
                 }
-                self.frame = tempFrame
-                self.invalidateIntrinsicContentSize()
-                }, completion: nil)
+            }
+            delegate?.collapsedChangedForNewRect?(tempFrame)
+            //animate collapsing or opening
+            //            UIView.animateWithDuration(0.5, delay: 0, options: .TransitionCrossDissolve, animations: {
+            //
+            //                self.frame = tempFrame
+            //                self.invalidateIntrinsicContentSize()
+            //                }, completion: nil)
+            self.frame = tempFrame
+            self.invalidateIntrinsicContentSize()
             setNeedsDisplay()
         }
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required public init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    }
+    
+    func rotated()
+    {
+        self.invalidateIntrinsicContentSize()
+        setNeedsDisplay()
+    }
+    
+    deinit
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "rotated", object: nil)
     }
     
     // MARK: Overridden standard UIView methods
@@ -187,7 +210,7 @@ public class DKDropMenu: UIView {
         //refresh display
         setNeedsDisplay()
     }
-
+    
     /// Remove a single item from the menu
     public func removeItemAtIndex(index: Int) {
         if (items[index] == selectedItem) {
