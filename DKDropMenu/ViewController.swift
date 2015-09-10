@@ -26,7 +26,7 @@ class ViewController: UIViewController, DKDropMenuDelegate {
 
     // MARK: DKDropMenuDelegate
     func itemSelectedWithIndex(index: Int, name: String) {
-        println("\(name) selected");
+        print("\(name) selected");
     }
 }
 

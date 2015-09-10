@@ -105,7 +105,7 @@ public class DKDropMenu: UIView {
         CGContextStrokePath(context)
         if let sele = selectedItem {
             //draw item text
-            var paragraphStyle = NSMutableParagraphStyle()
+            let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .Center
             let attrs = [NSFontAttributeName: UIFont(name: selectedFontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
             if (collapsed) {
@@ -149,7 +149,7 @@ public class DKDropMenu: UIView {
                 CGContextAddLineToPoint(context, frame.size.width, currentY)
                 CGContextStrokePath(context)
                 //draw item text
-                var paragraphStyle = NSMutableParagraphStyle()
+                let paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.alignment = .Center
                 let attrs = [NSFontAttributeName: UIFont(name: listFontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
                 item.drawInRect(CGRect(x: 20, y: currentY + (itemHeight / 2 - 10), width: frame.size.width - 20, height: 20), withAttributes: attrs)
@@ -214,20 +214,20 @@ public class DKDropMenu: UIView {
     
     /// Remove the first occurence of item named *name*
     public func removeItem(name: String) {
-        if let index = find(items, name) {
+        if let index = items.indexOf(name) {
             removeItemAtIndex(index)
         }
     }
     
     // MARK: Events
-    override public func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch:UITouch = touches.first as! UITouch
-        let point:CGPoint = touch.locationInView(self)
+    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch: UITouch = touches.first!
+        let point: CGPoint = touch.locationInView(self)
         if point.y > itemHeight {
             if let dele = delegate {
                 var thought = Int(point.y / itemHeight) - 1
                 if let sele = selectedItem {
-                    if find(items, sele) <= thought {
+                    if items.indexOf(sele) <= thought {
                         thought += 1
                     }
                 }
