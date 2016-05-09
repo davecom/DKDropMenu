@@ -110,10 +110,10 @@ public class DKDropMenu: UIView {
             let attrs = [NSFontAttributeName: UIFont(name: selectedFontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
             if (collapsed) {
                 let tempS = "\(sele)"  //put chevron down facing here if right unicode found
-                tempS.drawInRect(CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 20, height: 20), withAttributes: attrs)
+                tempS.drawInRect(CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 40, height: 20), withAttributes: attrs)
             } else {
                 let tempS = "\(sele)"  //put chevron up facing here if right unicode found
-                tempS.drawInRect(CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 20, height: 20), withAttributes: attrs)
+                tempS.drawInRect(CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 40, height: 20), withAttributes: attrs)
             }
             //draw selected line
             selectedColor.setStroke()
@@ -152,7 +152,7 @@ public class DKDropMenu: UIView {
                 let paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.alignment = .Center
                 let attrs = [NSFontAttributeName: UIFont(name: listFontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
-                item.drawInRect(CGRect(x: 20, y: currentY + (itemHeight / 2 - 10), width: frame.size.width - 20, height: 20), withAttributes: attrs)
+                item.drawInRect(CGRect(x: 20, y: currentY + (itemHeight / 2 - 10), width: frame.size.width - 40, height: 20), withAttributes: attrs)
                 currentY += itemHeight
             }
         }
