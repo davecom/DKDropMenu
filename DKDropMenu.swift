@@ -219,6 +219,21 @@ public class DKDropMenu: UIView {
         }
     }
     
+    /// Remove all items
+    public func removeAll() {
+        selectedItem = nil
+        items.removeAll()
+        if (!collapsed) {
+            UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
+                var tempFrame = self.frame
+                tempFrame.size.height = self.itemHeight
+                self.frame = tempFrame
+                }, completion: nil)
+        }
+        
+        setNeedsDisplay()
+    }
+    
     // MARK: Events
     override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch: UITouch = touches.first!
