@@ -5,17 +5,17 @@ DKDropMenu is a simple iOS drop down list written in Swift. It expands and colla
 ![DKDropMenu2](https://raw.githubusercontent.com/davecom/DKDropMenu/master/DKDropMenu.gif)
 
 ## Installation
-Use the cocoapod `DKDropMenu` or simply include `DKDropMenu.swift` in your project.
+Use the cocoapod `DKDropMenu` or simply include `DKDropMenu.swift` in your project. DKDropMenu 0.2.0 requires Swift 3. Use DKDropMenu 0.1.6 for Swift 2 support.
 
 ## Usage
 Create a DKDropMenu in IB or in code (using UIView's init methods). Then add items and set a delegate:
 ```
-dropMenu.addItems(["hello", "goodbye", "why?"])
+dropMenu.add(names: ["hello", "goodbye", "why?"])
 dropMenu.delegate = self
 ```
 Make sure to implement the single method the delegate (DKDropMenuDelegate) must implement:
 ```
-func itemSelectedWithIndex(index: Int, name: String) {
+func itemSelected(withIndex: Int, name: String) {
     println("\(name) selected");
 }
 ```
@@ -27,10 +27,10 @@ to be notified when the collapse status of the menu changes.
 
 Items can be added or removed 
 ```
-func addItems(names: [String])
-func addItem(name: String)
-func removeItemAtIndex(index: Int)
-func removeItem(name: String)
+func add(names: [String])
+func add(name: String)
+func remove(atIndex: Int)
+func remove(name: String)
 ```
 The properties `collapsed` (Bool) and `selectedItem` (String) can be manually modified.
 

@@ -1,6 +1,6 @@
 //The DKDropMenu License
 //
-//Copyright (c) 2015 David Kopec
+//Copyright (c) 2015-2016 David Kopec
 //
 //Permission is hereby granted, free of charge, to any person obtaining a copy
 //of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +32,8 @@ import UIKit
 
 /// Delegate protocol for receiving change in list selection
 @objc public protocol DKDropMenuDelegate {
-    func itemSelectedWithIndex(index: Int, name:String)
-    optional func collapsedChanged()
+    func itemSelected(withIndex: Int, name:String)
+    @objc optional func collapsedChanged()
 }
 
 /// A simple drop down list like expandable menu for iOS
@@ -43,9 +43,9 @@ public class DKDropMenu: UIView {
     @IBInspectable public var itemHeight: CGFloat = 44
     @IBInspectable public var selectedFontName: String = "HelveticaNeue-Bold"
     @IBInspectable public var listFontName: String = "HelveticaNeue-Thin"
-    @IBInspectable public var textColor: UIColor = UIColor.darkGrayColor()
-    @IBInspectable public var outlineColor: UIColor = UIColor.lightGrayColor()
-    @IBInspectable public var selectedColor: UIColor = UIColor.greenColor()
+    @IBInspectable public var textColor: UIColor = UIColor.darkGray
+    @IBInspectable public var outlineColor: UIColor = UIColor.lightGray
+    @IBInspectable public var selectedColor: UIColor = UIColor.green
     weak public var delegate: DKDropMenuDelegate? = nil  //notified when a selection occurs
     private var items: [String] = [String]()
     public var selectedItem: String? = nil {
@@ -57,7 +57,7 @@ public class DKDropMenu: UIView {
         didSet {
             delegate?.collapsedChanged?()
             //animate collapsing or opening
-            UIView.animateWithDuration(0.5, delay: 0, options: .TransitionCrossDissolve, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .transitionCrossDissolve, animations: {
                 var tempFrame = self.frame
                 if (self.collapsed) {
                     tempFrame.size.height = self.itemHeight
@@ -76,7 +76,7 @@ public class DKDropMenu: UIView {
     }
     
     // MARK: Overridden standard UIView methods
-    override public func sizeThatFits(size: CGSize) -> CGSize {
+    override public func sizeThatFits(_ size: CGSize) -> CGSize {
         if (items.count < 2 || collapsed) {
             return CGSize(width: size.width, height: itemHeight)
         } else {
@@ -84,7 +84,7 @@ public class DKDropMenu: UIView {
         }
     }
     
-    override public func intrinsicContentSize() -> CGSize {
+    override public var intrinsicContentSize: CGSize {
         if (items.count < 2 || collapsed) {
             return CGSize(width: bounds.size.width, height: itemHeight)
         } else {
@@ -92,40 +92,40 @@ public class DKDropMenu: UIView {
         }
     }
     
-    override public func drawRect(rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         // Drawing code
         //draw first box regardless
         let context = UIGraphicsGetCurrentContext()
         outlineColor.setStroke()
-        CGContextSetLineWidth(context, 1.0)
-        CGContextMoveToPoint(context, 0, itemHeight)
-        CGContextAddLineToPoint(context, 0, 0.5)
-        CGContextAddLineToPoint(context, frame.size.width, 0.5)
-        CGContextAddLineToPoint(context, frame.size.width, itemHeight)
-        CGContextStrokePath(context)
+        context?.setLineWidth(1.0)
+        context?.move(to: CGPoint(x: 0, y: itemHeight))
+        context?.addLine(to: CGPoint(x: 0, y: 0.5))
+        context?.addLine(to: CGPoint(x: frame.size.width, y: 0.5))
+        context?.addLine(to: CGPoint(x: frame.size.width, y: itemHeight))
+        context?.strokePath()
         if let sele = selectedItem {
             //draw item text
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = .Center
+            paragraphStyle.alignment = .center
             let attrs = [NSFontAttributeName: UIFont(name: selectedFontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
             if (collapsed) {
                 let tempS = "\(sele)"  //put chevron down facing here if right unicode found
-                tempS.drawInRect(CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 40, height: 20), withAttributes: attrs)
+                tempS.draw(in: CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 40, height: 20), withAttributes: attrs)
             } else {
                 let tempS = "\(sele)"  //put chevron up facing here if right unicode found
-                tempS.drawInRect(CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 40, height: 20), withAttributes: attrs)
+                tempS.draw(in: CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 40, height: 20), withAttributes: attrs)
             }
             //draw selected line
             selectedColor.setStroke()
-            CGContextMoveToPoint(context, 0, itemHeight - 2)
-            CGContextSetLineWidth(context, 4.0)
-            CGContextAddLineToPoint(context, frame.width, itemHeight - 2)
-            CGContextStrokePath(context)
+            context?.move(to: CGPoint(x: 0, y: itemHeight - 2))
+            context?.setLineWidth(4.0)
+            context?.addLine(to: CGPoint(x: frame.width, y: itemHeight - 2))
+            context?.strokePath()
         } else {
-            CGContextMoveToPoint(context, 0, itemHeight - 1)
-            CGContextSetLineWidth(context, 1.0)
-            CGContextAddLineToPoint(context, frame.width, itemHeight - 1)
-            CGContextStrokePath(context)
+            context?.move(to: CGPoint(x: 0, y: itemHeight - 1))
+            context?.setLineWidth(1.0)
+            context?.addLine(to: CGPoint(x: frame.width, y: itemHeight - 1))
+            context?.strokePath()
         }
         //draw lower boxes
         if (!collapsed && items.count > 1) {
@@ -136,23 +136,23 @@ public class DKDropMenu: UIView {
                 }
                 //draw box
                 outlineColor.setStroke()
-                CGContextSetLineWidth(context, 1.0)
-                CGContextMoveToPoint(context, 0, currentY)
-                CGContextAddLineToPoint(context, 0, currentY + itemHeight)
-                CGContextStrokePath(context)
-                CGContextSetLineWidth(context, 0.5)
-                CGContextMoveToPoint(context, 0, currentY + itemHeight - 1)
-                CGContextAddLineToPoint(context, frame.size.width, currentY + itemHeight - 1)
-                CGContextStrokePath(context)
-                CGContextSetLineWidth(context, 1.0)
-                CGContextMoveToPoint(context, frame.size.width, currentY + itemHeight)
-                CGContextAddLineToPoint(context, frame.size.width, currentY)
-                CGContextStrokePath(context)
+                context?.setLineWidth(1.0)
+                context?.move(to: CGPoint(x: 0, y: currentY))
+                context?.addLine(to: CGPoint(x: 0, y: currentY + itemHeight))
+                context?.strokePath()
+                context?.setLineWidth(0.5)
+                context?.move(to: CGPoint(x: 0, y: currentY + itemHeight - 1))
+                context?.addLine(to: CGPoint(x: frame.size.width, y: currentY + itemHeight - 1))
+                context?.strokePath()
+                context?.setLineWidth(1.0)
+                context?.move(to: CGPoint(x: frame.size.width, y: currentY + itemHeight))
+                context?.addLine(to: CGPoint(x: frame.size.width, y: currentY))
+                context?.strokePath()
                 //draw item text
                 let paragraphStyle = NSMutableParagraphStyle()
-                paragraphStyle.alignment = .Center
+                paragraphStyle.alignment = .center
                 let attrs = [NSFontAttributeName: UIFont(name: listFontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
-                item.drawInRect(CGRect(x: 20, y: currentY + (itemHeight / 2 - 10), width: frame.size.width - 40, height: 20), withAttributes: attrs)
+                item.draw(in: CGRect(x: 20, y: currentY + (itemHeight / 2 - 10), width: frame.size.width - 40, height: 20), withAttributes: attrs)
                 currentY += itemHeight
             }
         }
@@ -160,14 +160,14 @@ public class DKDropMenu: UIView {
     
     // MARK: Add or remove items
     /// Add an array of items to the menu
-    public func addItems(names: [String]) {
+    public func add(names: [String]) {
         for name in names {
-            addItem(name)
+            add(name: name)
         }
     }
     
     /// Add a single item to the menu
-    public func addItem(name: String) {
+    public func add(name: String) {
         //if we have no selected items, we'll take it
         if items.isEmpty {
             selectedItem = name
@@ -177,7 +177,7 @@ public class DKDropMenu: UIView {
         
         //animate change
         if (!collapsed && items.count > 1) {
-            UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
+            UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseOut, animations: {
                 var tempFrame = self.frame
                 tempFrame.size.height = self.itemHeight * CGFloat(self.items.count)
                 self.frame = tempFrame
@@ -189,20 +189,20 @@ public class DKDropMenu: UIView {
     }
 
     /// Remove a single item from the menu
-    public func removeItemAtIndex(index: Int) {
+    public func remove(at index: Int) {
         if (items[index] == selectedItem) {
             selectedItem = nil
         }
-        items.removeAtIndex(index)
+        items.remove(at: index)
         //animate change
         if (!collapsed && items.count > 1) {
-            UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
+            UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseOut, animations: {
                 var tempFrame = self.frame
                 tempFrame.size.height = self.itemHeight * CGFloat(self.items.count)
                 self.frame = tempFrame
                 }, completion: nil)
         } else if (!collapsed) {
-            UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
+            UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseOut, animations: {
                 var tempFrame = self.frame
                 tempFrame.size.height = self.itemHeight
                 self.frame = tempFrame
@@ -213,9 +213,9 @@ public class DKDropMenu: UIView {
     }
     
     /// Remove the first occurence of item named *name*
-    public func removeItem(name: String) {
-        if let index = items.indexOf(name) {
-            removeItemAtIndex(index)
+    public func remove(name: String) {
+        if let index = items.index(of: name) {
+            remove(at: index)
         }
     }
     
@@ -224,7 +224,7 @@ public class DKDropMenu: UIView {
         selectedItem = nil
         items.removeAll()
         if (!collapsed) {
-            UIView.animateWithDuration(0.7, delay: 0, options: .CurveEaseOut, animations: {
+            UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseOut, animations: {
                 var tempFrame = self.frame
                 tempFrame.size.height = self.itemHeight
                 self.frame = tempFrame
@@ -235,18 +235,18 @@ public class DKDropMenu: UIView {
     }
     
     // MARK: Events
-    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch = touches.first!
-        let point: CGPoint = touch.locationInView(self)
+        let point: CGPoint = touch.location(in: self)
         if point.y > itemHeight {
             if let dele = delegate {
                 var thought = Int(point.y / itemHeight) - 1
                 if let sele = selectedItem {
-                    if items.indexOf(sele) <= thought {
+                    if items.index(of: sele)! <= thought {
                         thought += 1
                     }
                 }
-                dele.itemSelectedWithIndex(thought, name: items[thought])
+                dele.itemSelected(withIndex: thought, name: items[thought])
                 selectedItem = items[thought]
             }
         }

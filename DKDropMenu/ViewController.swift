@@ -15,7 +15,7 @@ class ViewController: UIViewController, DKDropMenuDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        dropMenu.addItems(["hello", "goodbye", "why?"])
+        dropMenu.add(names: ["hello", "goodbye", "why?"])
         dropMenu.delegate = self
     }
 
@@ -25,7 +25,7 @@ class ViewController: UIViewController, DKDropMenuDelegate {
     }
 
     // MARK: DKDropMenuDelegate
-    func itemSelectedWithIndex(index: Int, name: String) {
+    func itemSelected(withIndex: Int, name: String) {
         print("\(name) selected");
     }
 }
