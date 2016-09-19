@@ -31,8 +31,9 @@ func add(names: [String])
 func add(name: String)
 func remove(atIndex: Int)
 func remove(name: String)
+func removeAll()
 ```
 The properties `collapsed` (Bool) and `selectedItem` (String) can be manually modified.
 
 ## License and Authorship
-Released under the MIT License.  Copyright 2015 David Kopec. Please open issues on GitHub.
+Released under the MIT License. Copyright 2015-2016 David Kopec. Please open issues on GitHub.
