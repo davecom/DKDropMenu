@@ -5,7 +5,7 @@ DKDropMenu is a simple iOS drop down list written in Swift. It expands and colla
 ![DKDropMenu2](https://raw.githubusercontent.com/davecom/DKDropMenu/master/DKDropMenu.gif)
 
 ## Installation
-Use the cocoapod `DKDropMenu` or simply include `DKDropMenu.swift` in your project. DKDropMenu 0.2.0 requires Swift 3. Use DKDropMenu 0.1.6 for Swift 2 support.
+Use the cocoapod `DKDropMenu` or simply include `DKDropMenu.swift` in your project. DKDropMenu 0.3.0 and above requires Swift 4. Use version 0.2.0 for Swift 3 Support. Use version 0.1.6 for Swift 2 support.
 
 ## Usage
 Create a DKDropMenu in IB or in code (using UIView's init methods). Then add items and set a delegate:

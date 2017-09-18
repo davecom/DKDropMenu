@@ -1,3 +1,7 @@
+### 0.3.0
+- Swift 4 Support
+- Removed Test Target from Sample Project
+
 ### 0.2.0
 - Swift 3 Support
 - Added removeAll() method
