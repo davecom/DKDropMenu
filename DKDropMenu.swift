@@ -107,7 +107,7 @@ public class DKDropMenu: UIView {
             //draw item text
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
-            let attrs = [NSFontAttributeName: UIFont(name: selectedFontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
+            let attrs = [NSAttributedStringKey.font: UIFont(name: selectedFontName, size: 16)!, NSAttributedStringKey.paragraphStyle: paragraphStyle, NSAttributedStringKey.foregroundColor: textColor]
             if (collapsed) {
                 let tempS = "\(sele)"  //put chevron down facing here if right unicode found
                 tempS.draw(in: CGRect(x: 20, y: itemHeight / 2 - 10, width: frame.size.width - 40, height: 20), withAttributes: attrs)
@@ -151,7 +151,7 @@ public class DKDropMenu: UIView {
                 //draw item text
                 let paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.alignment = .center
-                let attrs = [NSFontAttributeName: UIFont(name: listFontName, size: 16)!, NSParagraphStyleAttributeName: paragraphStyle, NSForegroundColorAttributeName: textColor]
+                let attrs = [NSAttributedStringKey.font: UIFont(name: listFontName, size: 16)!, NSAttributedStringKey.paragraphStyle: paragraphStyle, NSAttributedStringKey.foregroundColor: textColor]
                 item.draw(in: CGRect(x: 20, y: currentY + (itemHeight / 2 - 10), width: frame.size.width - 40, height: 20), withAttributes: attrs)
                 currentY += itemHeight
             }

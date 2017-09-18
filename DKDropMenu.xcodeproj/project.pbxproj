@@ -12,19 +12,8 @@
 		5570B21B1B22A2A300A97B4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5570B2191B22A2A300A97B4B /* Main.storyboard */; };
 		5570B21D1B22A2A300A97B4B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5570B21C1B22A2A300A97B4B /* Images.xcassets */; };
 		5570B2201B22A2A300A97B4B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5570B21E1B22A2A300A97B4B /* LaunchScreen.xib */; };
-		5570B22C1B22A2A300A97B4B /* DKDropMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5570B22B1B22A2A300A97B4B /* DKDropMenuTests.swift */; };
 		5570B2361B22A30700A97B4B /* DKDropMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5570B2351B22A30700A97B4B /* DKDropMenu.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		5570B2261B22A2A300A97B4B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5570B2081B22A2A300A97B4B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5570B20F1B22A2A300A97B4B;
-			remoteInfo = DKDropMenu;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5570B2101B22A2A300A97B4B /* DKDropMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DKDropMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -34,21 +23,11 @@
 		5570B21A1B22A2A300A97B4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5570B21C1B22A2A300A97B4B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5570B21F1B22A2A300A97B4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		5570B2251B22A2A300A97B4B /* DKDropMenuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DKDropMenuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5570B22A1B22A2A300A97B4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5570B22B1B22A2A300A97B4B /* DKDropMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKDropMenuTests.swift; sourceTree = "<group>"; };
 		5570B2351B22A30700A97B4B /* DKDropMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKDropMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		5570B20D1B22A2A300A97B4B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5570B2221B22A2A300A97B4B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -63,7 +42,6 @@
 			children = (
 				5570B2351B22A30700A97B4B /* DKDropMenu.swift */,
 				5570B2121B22A2A300A97B4B /* DKDropMenu */,
-				5570B2281B22A2A300A97B4B /* DKDropMenuTests */,
 				5570B2111B22A2A300A97B4B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,7 +50,6 @@
 			isa = PBXGroup;
 			children = (
 				5570B2101B22A2A300A97B4B /* DKDropMenu.app */,
-				5570B2251B22A2A300A97B4B /* DKDropMenuTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,23 +75,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5570B2281B22A2A300A97B4B /* DKDropMenuTests */ = {
-			isa = PBXGroup;
-			children = (
-				5570B22B1B22A2A300A97B4B /* DKDropMenuTests.swift */,
-				5570B2291B22A2A300A97B4B /* Supporting Files */,
-			);
-			path = DKDropMenuTests;
-			sourceTree = "<group>";
-		};
-		5570B2291B22A2A300A97B4B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				5570B22A1B22A2A300A97B4B /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,24 +95,6 @@
 			productReference = 5570B2101B22A2A300A97B4B /* DKDropMenu.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5570B2241B22A2A300A97B4B /* DKDropMenuTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5570B2321B22A2A300A97B4B /* Build configuration list for PBXNativeTarget "DKDropMenuTests" */;
-			buildPhases = (
-				5570B2211B22A2A300A97B4B /* Sources */,
-				5570B2221B22A2A300A97B4B /* Frameworks */,
-				5570B2231B22A2A300A97B4B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5570B2271B22A2A300A97B4B /* PBXTargetDependency */,
-			);
-			name = DKDropMenuTests;
-			productName = DKDropMenuTests;
-			productReference = 5570B2251B22A2A300A97B4B /* DKDropMenuTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -166,12 +108,7 @@
 				TargetAttributes = {
 					5570B20F1B22A2A300A97B4B = {
 						CreatedOnToolsVersion = 6.3.2;
-						LastSwiftMigration = 0800;
-					};
-					5570B2241B22A2A300A97B4B = {
-						CreatedOnToolsVersion = 6.3.2;
-						LastSwiftMigration = 0800;
-						TestTargetID = 5570B20F1B22A2A300A97B4B;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -189,7 +126,6 @@
 			projectRoot = "";
 			targets = (
 				5570B20F1B22A2A300A97B4B /* DKDropMenu */,
-				5570B2241B22A2A300A97B4B /* DKDropMenuTests */,
 			);
 		};
 /* End PBXProject section */
@@ -202,13 +138,6 @@
 				5570B21B1B22A2A300A97B4B /* Main.storyboard in Resources */,
 				5570B2201B22A2A300A97B4B /* LaunchScreen.xib in Resources */,
 				5570B21D1B22A2A300A97B4B /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5570B2231B22A2A300A97B4B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,23 +154,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5570B2211B22A2A300A97B4B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5570B22C1B22A2A300A97B4B /* DKDropMenuTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		5570B2271B22A2A300A97B4B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5570B20F1B22A2A300A97B4B /* DKDropMenu */;
-			targetProxy = 5570B2261B22A2A300A97B4B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5570B2191B22A2A300A97B4B /* Main.storyboard */ = {
@@ -360,7 +273,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.oaksnow.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -372,45 +286,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.oaksnow.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		5570B2331B22A2A300A97B4B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = DKDropMenuTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.oaksnow.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DKDropMenu.app/DKDropMenu";
-			};
-			name = Debug;
-		};
-		5570B2341B22A2A300A97B4B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = DKDropMenuTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.oaksnow.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DKDropMenu.app/DKDropMenu";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -431,15 +308,6 @@
 			buildConfigurations = (
 				5570B2301B22A2A300A97B4B /* Debug */,
 				5570B2311B22A2A300A97B4B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5570B2321B22A2A300A97B4B /* Build configuration list for PBXNativeTarget "DKDropMenuTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5570B2331B22A2A300A97B4B /* Debug */,
-				5570B2341B22A2A300A97B4B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
